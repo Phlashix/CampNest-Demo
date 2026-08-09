@@ -1,0 +1,1246 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Maquette des écrans CampNest — camping entre particuliers en France. Site web et application mobile.">
+<meta name="color-scheme" content="light dark">
+<style>*{box-sizing:border-box}body{margin:0}</style>
+<title>CampNest — Maquette des écrans</title>
+</head>
+<body>
+
+<style>
+  /* ══════════ page de présentation (suit le thème du lecteur) ══════════ */
+  :root {
+    --page:  #E4E7E2;
+    --page2: #F2F4F0;
+    --pink:  #12180F;
+    --pink2: #5D6A5C;
+    --pline: #CBD3C7;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --page: #10140F; --page2: #191F18; --pink: #E6ECE4; --pink2: #93A191; --pline: #2A342A; }
+  }
+  :root[data-theme="light"] { --page: #E4E7E2; --page2: #F2F4F0; --pink: #12180F; --pink2: #5D6A5C; --pline: #CBD3C7; }
+  :root[data-theme="dark"]  { --page: #10140F; --page2: #191F18; --pink: #E6ECE4; --pink2: #93A191; --pline: #2A342A; }
+
+  /* ══════════ charte CampNest — fixe, c'est l'identité du produit ══════════ */
+  .ui {
+    --forest: #1F5F46; --forest-soft: #E8F1ED;
+    --clay: #F2994A; --clay-deep: #C0601F;
+    --slate: #1A202C; --muted: #6B7A8D;
+    --sand: #F8FAFC; --white: #FFFFFF; --line: #E3E8EE;
+    color: var(--slate);
+    font-size: 13px; line-height: 1.5;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--page); color: var(--pink);
+    font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 1240px; margin: 0 auto; padding: clamp(28px,5vw,64px) clamp(14px,3vw,32px) 90px; }
+
+  .masthead { display: flex; align-items: center; gap: 11px; margin-bottom: 10px; }
+  .logo { width: 34px; height: 34px; border-radius: 10px; background: #1F5F46; display: grid; place-items: center; flex: none; }
+  .logo svg { width: 18px; height: 18px; color: #F2994A; }
+  .masthead h1 { font-size: 20px; font-weight: 800; letter-spacing: -.02em; margin: 0; }
+  .masthead .sub { margin-left: auto; font-size: 12px; color: var(--pink2); }
+  .intro { font-size: 15px; color: var(--pink2); max-width: 60ch; margin: 0 0 8px; }
+
+  .caption { display: flex; align-items: baseline; gap: 12px; margin: clamp(40px,6vw,72px) 0 14px; }
+  .caption .n {
+    font-size: 11px; font-weight: 800; letter-spacing: .1em; color: #1F5F46;
+    background: rgba(31,95,70,.12); border-radius: 5px; padding: 3px 7px; flex: none;
+  }
+  .caption h2 { font-size: 17px; font-weight: 750; letter-spacing: -.015em; margin: 0; }
+  .caption p { font-size: 13px; color: var(--pink2); margin: 0; }
+  @media (max-width: 620px) { .caption { flex-wrap: wrap; } .caption p { flex-basis: 100%; } }
+
+  /* ══════════ cadres ══════════ */
+  .browser {
+    border-radius: 12px; overflow: hidden; background: var(--white);
+    border: 1px solid var(--pline); box-shadow: 0 2px 6px rgba(0,0,0,.07), 0 26px 60px -30px rgba(0,0,0,.42);
+  }
+  .chrome { display: flex; align-items: center; gap: 6px; padding: 9px 12px; background: #E9EDEA; border-bottom: 1px solid #D8DFD8; }
+  .chrome i { width: 9px; height: 9px; border-radius: 50%; background: #C3CCC1; display: block; }
+  .chrome .url {
+    margin-left: 10px; font-family: ui-monospace, Menlo, monospace; font-size: 10.5px;
+    color: #6C776B; background: #F4F7F3; border-radius: 5px; padding: 3px 10px; flex: 1; max-width: 340px;
+  }
+  .viewport { overflow-x: auto; }
+  .viewport > .ui { min-width: 960px; background: var(--sand); }
+
+  .phones { display: flex; gap: clamp(14px,2.5vw,26px); overflow-x: auto; padding: 4px 2px 14px; }
+  .phone { flex: none; width: 268px; }
+  .phone .frame {
+    border-radius: 34px; background: #fff; padding: 9px;
+    border: 1px solid var(--pline); box-shadow: 0 2px 6px rgba(0,0,0,.07), 0 22px 50px -26px rgba(0,0,0,.5);
+  }
+  .phone .screen { border-radius: 26px; overflow: hidden; background: var(--sand); height: 552px; display: flex; flex-direction: column; }
+  .phone .lbl { text-align: center; font-size: 11.5px; color: var(--pink2); margin-top: 10px; }
+  .statusbar { display: flex; align-items: center; justify-content: space-between; padding: 9px 16px 3px; font-size: 10px; font-weight: 700; color: var(--slate); }
+  .statusbar .dots { display: flex; gap: 3px; align-items: center; }
+  .statusbar .dots i { width: 3px; height: 8px; border-radius: 1px; background: var(--slate); display: block; }
+  .statusbar .dots i:nth-child(1) { height: 4px; } .statusbar .dots i:nth-child(2) { height: 6px; }
+  .scroll { flex: 1; overflow: hidden; }
+
+  /* ══════════ composants d'interface ══════════ */
+  .ui a { color: inherit; text-decoration: none; }
+  .ui h3, .ui h4 { margin: 0; letter-spacing: -.015em; }
+
+  .nav { display: flex; align-items: center; gap: 22px; padding: 14px 26px; background: var(--white); border-bottom: 1px solid var(--line); }
+  .nav .brand { display: flex; align-items: center; gap: 8px; font-weight: 800; font-size: 15px; letter-spacing: -.02em; }
+  .nav .brand .m { width: 26px; height: 26px; border-radius: 8px; background: var(--forest); display: grid; place-items: center; }
+  .nav .brand .m svg { width: 14px; height: 14px; color: var(--clay); }
+  .nav .links { display: flex; gap: 20px; font-size: 12.5px; color: var(--muted); margin-left: 14px; }
+  .nav .links .on { color: var(--slate); font-weight: 650; }
+  .nav .right { margin-left: auto; display: flex; align-items: center; gap: 12px; }
+  .avatar { width: 28px; height: 28px; border-radius: 50%; background: linear-gradient(140deg,#8FB07A,#3E7A5E); }
+
+  .btn { border-radius: 999px; padding: 7px 15px; font-size: 12px; font-weight: 650; display: inline-flex; align-items: center; gap: 6px; }
+  .btn.p { background: var(--forest); color: #fff; }
+  .btn.o { border: 1px solid var(--line); color: var(--slate); background: var(--white); }
+  .btn.c { background: var(--clay); color: #fff; }
+  .btn.full { width: 100%; justify-content: center; padding: 11px; font-size: 13px; }
+  .btn svg { width: 13px; height: 13px; }
+
+  .searchbar { display: flex; align-items: center; gap: 0; background: var(--white); border: 1px solid var(--line); border-radius: 999px; padding: 5px 5px 5px 18px; box-shadow: 0 1px 3px rgba(26,32,44,.06); }
+  .searchbar .f { padding: 4px 16px 4px 0; border-right: 1px solid var(--line); }
+  .searchbar .f:last-of-type { border: 0; }
+  .searchbar .k { font-size: 9.5px; font-weight: 750; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+  .searchbar .v { font-size: 12.5px; font-weight: 600; }
+  .searchbar .v.ph { color: var(--muted); font-weight: 400; }
+  .searchbar .go { margin-left: auto; width: 34px; height: 34px; border-radius: 50%; background: var(--forest); display: grid; place-items: center; }
+  .searchbar .go svg { width: 15px; height: 15px; color: #fff; }
+
+  .filters { display: flex; gap: 7px; flex-wrap: wrap; }
+  .f-chip { font-size: 11.5px; padding: 6px 12px; border-radius: 999px; border: 1px solid var(--line); background: var(--white); color: var(--muted); display: inline-flex; align-items: center; gap: 5px; }
+  .f-chip svg { width: 12px; height: 12px; }
+  .f-chip.on { background: var(--forest); border-color: var(--forest); color: #fff; }
+
+  .grid3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
+  .grid2 { display: grid; grid-template-columns: repeat(2,1fr); gap: 16px; }
+  .spot { background: var(--white); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; }
+  .spot .img { height: 124px; position: relative; }
+  .spot .img .fav { position: absolute; top: 9px; right: 9px; width: 24px; height: 24px; border-radius: 50%; background: rgba(255,255,255,.9); display: grid; place-items: center; }
+  .spot .img .fav svg { width: 12px; height: 12px; }
+  .spot .img .tag { position: absolute; left: 9px; bottom: 9px; background: rgba(255,255,255,.94); border-radius: 6px; padding: 3px 7px; font-size: 10px; font-weight: 650; }
+  .spot .b { padding: 11px 13px 13px; }
+  .spot .t { font-size: 12.5px; font-weight: 700; line-height: 1.3; }
+  .spot .m { font-size: 11px; color: var(--muted); margin-top: 4px; display: flex; align-items: center; gap: 4px; }
+  .spot .m svg { width: 11px; height: 11px; }
+  .spot .pr { margin-top: 9px; display: flex; align-items: baseline; justify-content: space-between; }
+  .spot .pr b { font-size: 14px; font-weight: 750; }
+  .spot .pr span { font-size: 11px; color: var(--muted); font-weight: 400; }
+  .spot .pr .st { font-size: 11px; color: var(--muted); }
+
+  .g1 { background: linear-gradient(150deg,#3E7A5E,#8FB07A 55%,#D9C89A); }
+  .g2 { background: linear-gradient(150deg,#2F5F72,#6E9BA8 60%,#C8D9C4); }
+  .g3 { background: linear-gradient(150deg,#6B4B2E,#B08151 55%,#E0CFA6); }
+  .g4 { background: linear-gradient(150deg,#4A6741,#93A86B 60%,#DCD3A8); }
+  .g5 { background: linear-gradient(150deg,#7A6045,#C09A6B 55%,#E8DCC0); }
+  .g6 { background: linear-gradient(150deg,#2E5A4A,#6D9B7E 60%,#BFD3B4); }
+
+  .surface { background: var(--white); border: 1px solid var(--line); border-radius: 14px; }
+  .pad { padding: 18px; }
+
+  .row { display: flex; align-items: center; justify-content: space-between; gap: 12px; font-size: 12.5px; padding: 7px 0; }
+  .row .k { color: var(--muted); }
+  .row .v { font-weight: 600; font-variant-numeric: tabular-nums; }
+  .row.tot { border-top: 1px solid var(--line); margin-top: 5px; padding-top: 11px; font-size: 14px; font-weight: 800; }
+  .row.free .v { color: var(--forest); }
+
+  .amen { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px 14px; font-size: 12px; color: var(--slate); }
+  .amen div { display: flex; align-items: center; gap: 7px; }
+  .amen svg { width: 14px; height: 14px; color: var(--forest); }
+
+  .kpi { background: var(--white); border: 1px solid var(--line); border-radius: 14px; padding: 16px; }
+  .kpi .k { font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); font-weight: 750; display: flex; align-items: center; gap: 6px; }
+  .kpi .k svg { width: 13px; height: 13px; }
+  .kpi .n { font-size: 26px; font-weight: 800; letter-spacing: -.03em; margin-top: 6px; font-variant-numeric: tabular-nums; }
+  .kpi .h { font-size: 11px; color: var(--muted); margin-top: 3px; }
+  .kpi.hot { background: var(--forest); border-color: var(--forest); color: #fff; }
+  .kpi.hot .k, .kpi.hot .h { color: rgba(255,255,255,.75); }
+
+  .quota { background: var(--sand); border: 1px solid var(--line); border-radius: 9px; padding: 8px 11px; }
+  .quota .top { display: flex; justify-content: space-between; font-size: 11px; }
+  .quota .top .k { color: var(--muted); }
+  .quota .top .v { font-weight: 700; font-variant-numeric: tabular-nums; }
+  .quota .track { height: 5px; border-radius: 3px; background: var(--line); margin-top: 6px; overflow: hidden; }
+  .quota .fill { height: 100%; border-radius: 3px; background: var(--forest); }
+  .quota .fill.warn { background: var(--clay-deep); }
+
+  .tabs { display: flex; gap: 4px; border-bottom: 1px solid var(--line); padding: 0 26px; background: var(--white); }
+  .tabs div { font-size: 12.5px; padding: 12px 13px; color: var(--muted); border-bottom: 2px solid transparent; display: flex; align-items: center; gap: 6px; }
+  .tabs div svg { width: 14px; height: 14px; }
+  .tabs div.on { color: var(--forest); border-bottom-color: var(--forest); font-weight: 650; }
+  .badge-n { background: var(--clay); color: #fff; border-radius: 999px; font-size: 9px; font-weight: 750; padding: 1px 5px; }
+
+  .badge { font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 999px; }
+  .badge.ok { background: var(--forest-soft); color: var(--forest); }
+  .badge.wait { background: #FEF0E2; color: var(--clay-deep); }
+  .badge.off { background: #EEF1F4; color: var(--muted); }
+
+  .legal { background: var(--sand); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; }
+  .legal .h { font-size: 12px; font-weight: 700; display: flex; align-items: center; gap: 7px; }
+  .legal .h svg { width: 14px; height: 14px; color: var(--muted); }
+  .legal p { font-size: 11px; color: var(--muted); margin: 6px 0 0; line-height: 1.55; }
+  .legal b { color: var(--slate); }
+
+  /* carte stylisée */
+  .map { background: #DCE6E4; position: relative; overflow: hidden; }
+  .map .land { position: absolute; inset: 0; }
+  .map .pin { position: absolute; transform: translate(-50%,-100%); background: var(--white); border-radius: 999px; padding: 3px 8px; font-size: 10.5px; font-weight: 750; box-shadow: 0 2px 6px rgba(0,0,0,.22); }
+  .map .pin.on { background: var(--forest); color: #fff; }
+  .map .trail { position: absolute; inset: 0; }
+
+  /* mobile */
+  .m-head { padding: 10px 16px 8px; display: flex; align-items: center; gap: 8px; background: var(--sand); }
+  .m-head .t { font-size: 17px; font-weight: 800; letter-spacing: -.02em; }
+  .m-head .s { margin-left: auto; font-size: 10.5px; color: var(--muted); }
+  .m-search { margin: 0 16px 10px; display: flex; align-items: center; gap: 8px; background: var(--white); border: 1px solid var(--line); border-radius: 999px; padding: 8px 13px; font-size: 11.5px; color: var(--muted); }
+  .m-search svg { width: 13px; height: 13px; }
+  .m-chips { display: flex; gap: 6px; padding: 0 16px 11px; }
+  .m-card { margin: 0 16px 11px; background: var(--white); border: 1px solid var(--line); border-radius: 13px; overflow: hidden; }
+  .m-card .img { height: 96px; position: relative; }
+  .m-card .b { padding: 9px 11px 11px; }
+  .m-card .t { font-size: 12px; font-weight: 700; line-height: 1.3; }
+  .m-card .m { font-size: 10.5px; color: var(--muted); margin-top: 3px; }
+  .m-card .p { font-size: 12.5px; font-weight: 750; margin-top: 6px; }
+  .m-card .p span { font-size: 10.5px; color: var(--muted); font-weight: 400; }
+
+  .tabbar { display: flex; border-top: 1px solid var(--line); background: var(--white); padding: 9px 4px 12px; }
+  .tabbar div { flex: 1; display: grid; place-items: center; gap: 3px; font-size: 8.5px; color: var(--muted); }
+  .tabbar div.on { color: var(--forest); font-weight: 700; }
+  .tabbar svg { width: 16px; height: 16px; }
+
+  .stepper { display: flex; align-items: center; justify-content: space-between; background: var(--white); border: 1px solid var(--line); border-radius: 11px; padding: 8px 12px; margin: 0 16px; }
+  .stepper .v { font-size: 12.5px; font-weight: 650; }
+  .stepper .b { width: 26px; height: 26px; border-radius: 50%; border: 1px solid var(--line); display: grid; place-items: center; color: var(--forest); font-weight: 700; font-size: 14px; }
+  .m-label { font-size: 11px; font-weight: 750; letter-spacing: .07em; text-transform: uppercase; color: var(--muted); padding: 13px 16px 7px; }
+  .m-box { margin: 0 16px; background: var(--white); border: 1px solid var(--line); border-radius: 11px; padding: 12px 13px; }
+  .pay { display: flex; align-items: center; gap: 10px; padding: 9px 11px; border: 1px solid var(--line); border-radius: 10px; background: var(--white); margin: 0 16px 7px; }
+  .pay.on { border-color: var(--forest); background: var(--forest-soft); }
+  .pay svg { width: 16px; height: 16px; color: var(--forest); flex: none; }
+  .pay .t { font-size: 12px; font-weight: 650; }
+  .pay .s { font-size: 10px; color: var(--muted); }
+
+
+  /* ── écran de recherche cartographique ── */
+  .bigmap { position: relative; background: #D7E3E2; height: 592px; overflow: hidden; }
+  .bigmap svg.base { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .mpin {
+    position: absolute; transform: translate(-50%,-100%); background: var(--white);
+    border-radius: 999px; padding: 4px 10px; font-size: 11px; font-weight: 750;
+    box-shadow: 0 2px 7px rgba(26,32,44,.26); white-space: nowrap; color: var(--slate);
+  }
+  .mpin::after {
+    content: ""; position: absolute; left: 50%; bottom: -4px; width: 7px; height: 7px;
+    background: inherit; transform: translateX(-50%) rotate(45deg);
+  }
+  .mpin.sel { background: var(--forest); color: #fff; box-shadow: 0 3px 12px rgba(31,95,70,.5); }
+  .mpin.dim { background: rgba(255,255,255,.72); color: var(--muted); font-weight: 600; box-shadow: 0 1px 4px rgba(26,32,44,.16); }
+  .mcluster {
+    position: absolute; transform: translate(-50%,-50%); width: 34px; height: 34px;
+    border-radius: 50%; background: var(--forest); color: #fff; display: grid; place-items: center;
+    font-size: 12px; font-weight: 750; box-shadow: 0 0 0 5px rgba(31,95,70,.2);
+  }
+  .mapctl { position: absolute; right: 14px; top: 14px; display: grid; gap: 7px; }
+  .mapctl .b { width: 32px; height: 32px; border-radius: 9px; background: var(--white); display: grid; place-items: center; box-shadow: 0 1px 4px rgba(26,32,44,.2); font-size: 15px; font-weight: 700; color: var(--slate); }
+  .mapctl .b svg { width: 15px; height: 15px; color: var(--forest); }
+  .maplegend {
+    position: absolute; left: 14px; bottom: 14px; background: rgba(255,255,255,.95);
+    border-radius: 10px; padding: 10px 13px; box-shadow: 0 2px 10px rgba(26,32,44,.18); font-size: 11px;
+  }
+  .maplegend .r { display: flex; align-items: center; gap: 8px; padding: 2px 0; color: var(--muted); }
+  .maplegend .s { width: 18px; height: 0; border-top-width: 2.5px; border-top-style: dashed; display: block; flex: none; }
+  .mapsearch {
+    position: absolute; left: 14px; top: 14px; background: var(--white); border-radius: 999px;
+    padding: 7px 8px 7px 15px; display: flex; align-items: center; gap: 10px;
+    box-shadow: 0 2px 10px rgba(26,32,44,.18); font-size: 12px;
+  }
+  .mapsearch .go { width: 28px; height: 28px; border-radius: 50%; background: var(--forest); display: grid; place-items: center; }
+  .mapsearch .go svg { width: 13px; height: 13px; color: #fff; }
+  .trailrow { display: flex; align-items: center; gap: 9px; padding: 8px 10px; border-radius: 9px; border: 1px solid var(--line); background: var(--white); }
+  .trailrow.on { border-color: var(--forest); background: var(--forest-soft); }
+  .trailrow .ln { width: 20px; border-top: 2.5px dashed var(--clay-deep); flex: none; }
+  .trailrow .ln.b { border-color: #2F6F9E; }
+  .trailrow .t { font-size: 11.5px; font-weight: 650; }
+  .trailrow .s { font-size: 10px; color: var(--muted); }
+  .slider { height: 4px; border-radius: 2px; background: var(--line); position: relative; margin: 12px 4px 6px; }
+  .slider .fill { position: absolute; left: 0; top: 0; bottom: 0; border-radius: 2px; background: var(--forest); }
+  .slider .knob { position: absolute; top: 50%; width: 15px; height: 15px; border-radius: 50%; background: var(--white); border: 2.5px solid var(--forest); transform: translate(-50%,-50%); }
+
+
+  /* ── Lecture sur petit écran ──────────────────────────────────
+     Les écrans sont dessinés à leur largeur réelle (1174 px). Plutôt
+     que d'imposer un défilement horizontal, on réduit le cadre entier
+     à la largeur disponible : la mise en page reste fidèle, et le
+     lecteur peut zoomer avec deux doigts pour lire le détail.
+     `zoom` refait la mise en page, contrairement à `transform`, donc
+     la hauteur réservée reste juste.                              */
+  @media (max-width: 1180px) { .browser, .phones { zoom: .84; } }
+  @media (max-width: 1000px) { .browser, .phones { zoom: .72; } }
+  @media (max-width: 860px)  { .browser, .phones { zoom: .60; } }
+  @media (max-width: 720px)  { .browser, .phones { zoom: .48; } }
+  @media (max-width: 600px)  { .browser, .phones { zoom: .38; } }
+  @media (max-width: 480px)  { .browser, .phones { zoom: .31; } }
+  @media (max-width: 400px)  { .browser, .phones { zoom: .26; } }
+
+  /* Repli pour les navigateurs sans `zoom` : défilement dans le cadre,
+     jamais dans la page. */
+  @supports not (zoom: 1) {
+    .viewport { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  }
+
+  .hint {
+    display: none; font-size: 12.5px; color: var(--pink2);
+    border: 1px solid var(--pline); border-radius: 9px; padding: 9px 12px; margin-top: 14px;
+  }
+  @media (max-width: 860px) { .hint { display: block; } }
+
+  footer { margin-top: 60px; border-top: 1px solid var(--pline); padding-top: 20px; font-size: 12px; color: var(--pink2); display: flex; flex-wrap: wrap; gap: 10px 26px; justify-content: space-between; }
+  @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="tent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 2 20h20L12 3Z"/><path d="M12 3v17"/></symbol>
+  <symbol id="heart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 5.6a5 5 0 0 0-7.1 0L12 7.3l-1.7-1.7a5 5 0 1 0-7.1 7.1L12 21l8.8-8.3a5 5 0 0 0 0-7.1Z"/></symbol>
+  <symbol id="search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></symbol>
+  <symbol id="pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></symbol>
+  <symbol id="msg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-8 8H4l2-3a8 8 0 1 1 15-5Z"/></symbol>
+  <symbol id="cal" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></symbol>
+  <symbol id="user" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></symbol>
+  <symbol id="wallet" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h12v4"/><rect x="3" y="7" width="18" height="12" rx="2"/><circle cx="17" cy="13" r="1.4"/></symbol>
+  <symbol id="bolt" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 4 14h7l-1 8 9-12h-7l1-8Z"/></symbol>
+  <symbol id="drop" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11Z"/></symbol>
+  <symbol id="shower" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 20V7a3 3 0 0 1 6 0M14 11h7M17.5 11v6M14 15h7"/></symbol>
+  <symbol id="fire" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22a6 6 0 0 0 6-6c0-5-6-10-6-10S6 11 6 16a6 6 0 0 0 6 6Z"/></symbol>
+  <symbol id="paw" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="7" cy="8" r="2"/><circle cx="12" cy="6" r="2"/><circle cx="17" cy="8" r="2"/><path d="M12 12c-3 0-5 2-5 4.5S9 21 12 21s5-2 5-4.5S15 12 12 12Z"/></symbol>
+  <symbol id="wc" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4v7a5 5 0 0 0 10 0V4M11 16v4M8 20h6"/></symbol>
+  <symbol id="star" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.5 7 .9-5 4.8 1.3 7L12 17.8 5.7 21.2 7 14.2 2 9.4l7-.9L12 2Z"/></symbol>
+  <symbol id="scale" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M7 21h10M5 7h14M5 7l-3 7h6L5 7Zm14 0-3 7h6l-3-7Z"/></symbol>
+  <symbol id="card" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></symbol>
+  <symbol id="apple" viewBox="0 0 24 24" fill="currentColor"><path d="M16.4 12.8c0-2.3 1.9-3.4 2-3.5-1.1-1.6-2.8-1.8-3.4-1.8-1.4-.2-2.8.9-3.5.9s-1.8-.8-3-.8c-1.5 0-3 .9-3.8 2.3-1.6 2.8-.4 7 1.2 9.3.8 1.1 1.7 2.4 2.9 2.3 1.2 0 1.6-.7 3-.7s1.8.7 3 .7c1.3 0 2.1-1.1 2.8-2.3.9-1.3 1.3-2.6 1.3-2.6s-2.5-1-2.5-3.8ZM14.2 5.8c.6-.8 1.1-1.9 1-3-.9 0-2 .6-2.7 1.4-.6.7-1.1 1.8-1 2.9 1 .1 2-.5 2.7-1.3Z"/></symbol>
+  <symbol id="trend" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 17 6-6 4 4 8-8"/><path d="M15 7h6v6"/></symbol>
+  <symbol id="lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></symbol>
+  <symbol id="spark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3 2 5.5L19.5 10 14 12l-2 5.5L10 12 4.5 10 10 8.5 12 3Z"/></symbol>
+  <symbol id="plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m4 12 5.5 5.5L20 7"/></symbol>
+  <symbol id="hourglass" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3h10M7 21h10M8 3v4l4 4 4-4V3M8 21v-4l4-4 4 4v4"/></symbol>
+  <symbol id="bank" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10h18L12 4 3 10Zm2 0v8m5-8v8m4-8v8m5-8v8M3 20h18"/></symbol>
+</svg>
+
+<div class="wrap">
+  <div class="masthead">
+    <span class="logo"><svg><use href="#tent"/></svg></span>
+    <h1>CampNest</h1>
+    <span class="sub">Maquette des écrans · août 2026</span>
+  </div>
+  <p class="intro">
+    Les sept écrans principaux du produit, site et application. Rendu statique, non
+    fonctionnel — les contenus sont ceux du jeu de démonstration.
+  </p>
+  <p class="hint">
+    Vous lisez sur un petit écran : les maquettes sont réduites pour tenir dans la largeur.
+    Pincez avec deux doigts pour agrandir un détail, ou ouvrez cette page sur un ordinateur.
+  </p>
+
+  <!-- ══════════════ 1 · accueil ══════════════ -->
+  <div class="caption">
+    <span class="n">01</span>
+    <h2>Accueil et catalogue</h2>
+    <p>Recherche, filtres par catégorie et par itinéraire de randonnée.</p>
+  </div>
+
+  <div class="browser">
+    <div class="chrome"><i></i><i></i><i></i><span class="url">campnest.fr</span></div>
+    <div class="viewport"><div class="ui">
+
+      <div class="nav">
+        <span class="brand"><span class="m"><svg><use href="#tent"/></svg></span>CampNest</span>
+        <span class="links"><span class="on">Explorer</span><span>Itinéraires</span><span>Devenir hôte</span></span>
+        <span class="right"><span class="btn o">Proposer mon jardin</span><span class="avatar"></span></span>
+      </div>
+
+      <div style="padding:26px 26px 0">
+        <h3 style="font-size:30px;font-weight:800;max-width:17ch;line-height:1.1">
+          Plantez votre tente dans des jardins d'exception.
+        </h3>
+        <p style="color:var(--muted);font-size:13.5px;margin:9px 0 18px;max-width:52ch">
+          Des terrains privés, choisis par leurs propriétaires. Loin des campings bondés.
+        </p>
+
+        <div class="searchbar" style="max-width:720px">
+          <div class="f"><div class="k">Où</div><div class="v">Bretagne sud</div></div>
+          <div class="f" style="padding-left:16px"><div class="k">Arrivée</div><div class="v">12 août</div></div>
+          <div class="f" style="padding-left:16px"><div class="k">Départ</div><div class="v">15 août</div></div>
+          <div class="f" style="padding-left:16px"><div class="k">Voyageurs</div><div class="v ph">2 personnes</div></div>
+          <span class="go"><svg><use href="#search"/></svg></span>
+        </div>
+
+        <div class="filters" style="margin:20px 0 16px">
+          <span class="f-chip on"><svg><use href="#tent"/></svg>Tente</span>
+          <span class="f-chip">Van</span>
+          <span class="f-chip"><svg><use href="#spark"/></svg>Insolite</span>
+          <span class="f-chip"><svg><use href="#drop"/></svg>Bord de l'eau</span>
+          <span class="f-chip">En forêt</span>
+          <span class="f-chip">Ferme</span>
+          <span class="f-chip"><svg><use href="#pin"/></svg>Le long du GR 34</span>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 320px;gap:18px;padding:0 26px 26px;align-items:start">
+        <div>
+          <p style="font-size:12.5px;color:var(--muted);margin:0 0 12px">
+            <b style="color:var(--slate)">8 emplacements</b> · Bretagne sud, 12 – 15 août
+          </p>
+          <div class="grid3">
+            <div class="spot">
+              <div class="img g1"><span class="fav"><svg style="color:var(--clay-deep)"><use href="#heart"/></svg></span><span class="tag">Bord de l'eau</span></div>
+              <div class="b">
+                <div class="t">Prairie bordée de rivière avec vue sur les collines</div>
+                <div class="m"><svg><use href="#pin"/></svg>Quimper, Finistère</div>
+                <div class="pr"><b>18,50 € <span>/ nuit</span></b><span class="st">★ 4,8 (12)</span></div>
+              </div>
+            </div>
+            <div class="spot">
+              <div class="img g2"><span class="fav"><svg style="color:var(--muted)"><use href="#heart"/></svg></span><span class="tag">Vue panoramique</span></div>
+              <div class="b">
+                <div class="t">Bord de lac sauvage, accès ponton privé</div>
+                <div class="m"><svg><use href="#pin"/></svg>Aiguebelette-le-Lac, Savoie</div>
+                <div class="pr"><b>25,00 € <span>/ nuit</span></b><span class="st">★ 4,9 (8)</span></div>
+              </div>
+            </div>
+            <div class="spot">
+              <div class="img g3"><span class="fav"><svg style="color:var(--muted)"><use href="#heart"/></svg></span><span class="tag">Insolite</span></div>
+              <div class="b">
+                <div class="t">Roulotte bohème dans un verger normand</div>
+                <div class="m"><svg><use href="#pin"/></svg>Beuvron-en-Auge, Calvados</div>
+                <div class="pr"><b>24,00 € <span>/ nuit</span></b><span class="st">★ 5,0 (4)</span></div>
+              </div>
+            </div>
+            <div class="spot">
+              <div class="img g4"><span class="fav"><svg style="color:var(--muted)"><use href="#heart"/></svg></span><span class="tag">En forêt</span></div>
+              <div class="b">
+                <div class="t">Clairière isolée en lisière de forêt</div>
+                <div class="m"><svg><use href="#pin"/></svg>Saint-Léger-Vauban, Yonne</div>
+                <div class="pr"><b>14,00 € <span>/ nuit</span></b><span class="st">★ 4,6 (9)</span></div>
+              </div>
+            </div>
+            <div class="spot">
+              <div class="img g5"><span class="fav"><svg style="color:var(--muted)"><use href="#heart"/></svg></span><span class="tag">Ferme</span></div>
+              <div class="b">
+                <div class="t">Pré de la ferme, fromages et pain frais</div>
+                <div class="m"><svg><use href="#pin"/></svg>Salers, Cantal</div>
+                <div class="pr"><b>12,00 € <span>/ nuit</span></b><span class="st">★ 4,7 (15)</span></div>
+              </div>
+            </div>
+            <div class="spot">
+              <div class="img g6"><span class="fav"><svg style="color:var(--muted)"><use href="#heart"/></svg></span><span class="tag">Électricité</span></div>
+              <div class="b">
+                <div class="t">Emplacement van avec électricité, jardin ombragé</div>
+                <div class="m"><svg><use href="#pin"/></svg>Sarlat-la-Canéda, Dordogne</div>
+                <div class="pr"><b>22,00 € <span>/ nuit</span></b><span class="st">★ 4,8 (11)</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="surface" style="overflow:hidden;position:sticky;top:0">
+          <div class="map" style="height:430px">
+            <svg class="land" viewBox="0 0 320 430" preserveAspectRatio="none" aria-hidden="true">
+              <rect width="320" height="430" fill="#DCE6E4"/>
+              <path d="M40 0h240v430H40z" fill="#E8EFE6"/>
+              <path d="M-10 120C60 100 120 150 190 130s110-40 150-20v40c-50-10-100 20-160 40s-120-20-190 0Z" fill="#CFDDD6"/>
+              <path d="M0 300c70-20 130 10 200-10s90-30 130-10v150H0Z" fill="#E2EBDF"/>
+              <path d="M20 40C70 90 90 160 150 200s120 90 160 170" stroke="#C25E28" stroke-width="2.5" stroke-dasharray="7 5" fill="none" opacity=".75"/>
+            </svg>
+            <span class="pin on" style="left:36%;top:33%">18,50 €</span>
+            <span class="pin" style="left:66%;top:22%">25 €</span>
+            <span class="pin" style="left:24%;top:58%">14 €</span>
+            <span class="pin" style="left:58%;top:66%">12 €</span>
+            <span class="pin" style="left:78%;top:47%">24 €</span>
+            <span class="pin" style="left:44%;top:82%">22 €</span>
+          </div>
+          <div style="padding:11px 13px;border-top:1px solid var(--line);font-size:11px;color:var(--muted);display:flex;align-items:center;gap:7px">
+            <svg style="width:12px;height:12px;color:var(--clay-deep)"><use href="#pin"/></svg>
+            GR 34 — Sentier des douaniers · rayon 25 km
+          </div>
+        </div>
+      </div>
+
+    </div></div>
+  </div>
+
+
+  <!-- ══════════════ 02 · carte ══════════════ -->
+  <div class="caption">
+    <span class="n">02</span>
+    <h2>Recherche cartographique</h2>
+    <p>Les annonces se recalculent avec l'emprise de la carte. Filtre par GR et itinéraires cyclables.</p>
+  </div>
+
+  <div class="browser">
+    <div class="chrome"><i></i><i></i><i></i><span class="url">campnest.fr/explorer?trail=gr-34&amp;rayon=25</span></div>
+    <div class="viewport"><div class="ui">
+
+      <div class="nav">
+        <span class="brand"><span class="m"><svg><use href="#tent"/></svg></span>CampNest</span>
+        <span class="links"><span>Explorer</span><span class="on">Itinéraires</span><span>Devenir hôte</span></span>
+        <span class="right"><span class="btn o">Proposer mon jardin</span><span class="avatar"></span></span>
+      </div>
+
+      <div style="display:grid;grid-template-columns:288px 1fr;align-items:stretch">
+
+        <!-- panneau de filtres -->
+        <div style="background:var(--white);border-right:1px solid var(--line);padding:18px;display:grid;gap:16px;align-content:start">
+          <div>
+            <h4 style="font-size:13px;margin-bottom:9px">Activité</h4>
+            <div class="filters">
+              <span class="f-chip on">Randonnée</span>
+              <span class="f-chip">Vélo</span>
+              <span class="f-chip">Toutes</span>
+            </div>
+          </div>
+
+          <div>
+            <h4 style="font-size:13px;margin-bottom:9px">Itinéraire</h4>
+            <div style="display:grid;gap:6px">
+              <div class="trailrow on">
+                <span class="ln"></span>
+                <div style="flex:1"><div class="t">GR 34 — Sentier des douaniers</div><div class="s">Bretagne · 1 782 km</div></div>
+                <svg style="width:13px;height:13px;color:var(--forest)"><use href="#check"/></svg>
+              </div>
+              <div class="trailrow"><span class="ln"></span><div style="flex:1"><div class="t">GR 10 — Traversée des Pyrénées</div><div class="s">Occitanie · 866 km</div></div></div>
+              <div class="trailrow"><span class="ln"></span><div style="flex:1"><div class="t">GR 5 — Vosges, Jura, Alpes</div><div class="s">Grand Est → PACA · 1 100 km</div></div></div>
+              <div class="trailrow"><span class="ln"></span><div style="flex:1"><div class="t">GR 20 — Corse</div><div class="s">Corse · 180 km</div></div></div>
+              <div class="trailrow"><span class="ln b"></span><div style="flex:1"><div class="t">EuroVelo 6 — Les fleuves</div><div class="s">Atlantique → Rhin · 1 300 km</div></div></div>
+              <div class="trailrow"><span class="ln b"></span><div style="flex:1"><div class="t">EuroVelo 1 — La Vélodyssée</div><div class="s">Façade atlantique · 1 200 km</div></div></div>
+            </div>
+          </div>
+
+          <div>
+            <h4 style="font-size:13px;margin-bottom:2px">Distance au tracé</h4>
+            <div class="slider"><span class="fill" style="width:50%"></span><span class="knob" style="left:50%"></span></div>
+            <div style="display:flex;justify-content:space-between;font-size:10.5px;color:var(--muted)"><span>1 km</span><span style="color:var(--forest);font-weight:700">25 km</span><span>50 km</span></div>
+          </div>
+
+          <div>
+            <h4 style="font-size:13px;margin-bottom:2px">Prix par nuit</h4>
+            <div class="slider"><span class="fill" style="width:100%"></span><span class="knob" style="left:0%"></span><span class="knob" style="left:100%"></span></div>
+            <div style="display:flex;justify-content:space-between;font-size:10.5px;color:var(--muted)"><span>0 €</span><span style="color:var(--forest);font-weight:700">jusqu'à 25 €</span></div>
+          </div>
+
+          <div>
+            <h4 style="font-size:13px;margin-bottom:9px">Équipements</h4>
+            <div class="filters">
+              <span class="f-chip on"><svg><use href="#drop"/></svg>Point d'eau</span>
+              <span class="f-chip"><svg><use href="#bolt"/></svg>Électricité</span>
+              <span class="f-chip"><svg><use href="#fire"/></svg>Feu de camp</span>
+              <span class="f-chip"><svg><use href="#paw"/></svg>Animaux</span>
+            </div>
+          </div>
+
+          <div style="border-top:1px solid var(--line);padding-top:13px">
+            <div style="font-size:12px"><b>6 emplacements</b> <span style="color:var(--muted)">le long du GR 34</span></div>
+            <p style="font-size:10.5px;color:var(--muted);margin:5px 0 0;line-height:1.5">
+              Triés par distance au sentier. Déplacez la carte pour actualiser les résultats.
+            </p>
+          </div>
+        </div>
+
+        <!-- carte -->
+        <div class="bigmap">
+          <svg class="base" viewBox="0 0 560 541" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+            <rect width="560" height="541" fill="#D7E3E2"/>
+            <path d="M286.3 14.5L267.1 18.7L257.9 31.0L256.1 58.9L238.7 73.3L202.6 96.3L182.4 104.4L140.0 86.7L140.0 131.7L124.5 141.8L97.6 144.5L33.2 155.2L23.9 173.9L38.7 187.3L74.8 192.7L97.6 203.4L117.9 216.8L119.7 232.8L133.4 256.9L156.6 275.6L161.0 305.1L156.2 355.9L141.5 418.5L133.4 425.0L171.3 454.9L222.9 460.3L252.4 471.0L268.9 471.0L296.6 479.0L310.6 452.3L315.0 436.2L335.3 422.8L366.6 425.5L396.1 428.2L418.2 441.6L443.9 430.9L466.1 406.8L476.4 402.5L456.8 382.7L455.0 345.2L453.2 329.2L449.5 289.0L429.2 270.3L423.7 275.6L423.7 262.3L451.3 230.1L478.9 203.4L478.9 160.6L501.1 124.7L502.2 123.1L460.5 112.4L432.9 99.0L414.5 93.7L399.7 80.3L377.6 61.6L353.7 50.8L331.6 42.8L292.9 26.8Z" fill="#E9EFE4" stroke="#BFCDBD" stroke-width="1.3" stroke-linejoin="round"/>
+            <path d="M543.4 444.2L547.1 460.3L550.8 479.0L545.3 505.8L539.7 531.5L521.3 519.2L513.9 497.8L513.9 479.0L519.5 465.6L530.5 454.9Z" fill="#E9EFE4" stroke="#BFCDBD" stroke-width="1.3" stroke-linejoin="round"/>
+
+            <!-- couloir de recherche autour du GR 34 -->
+            <path d="M124.5 141.8L97.6 144.5L71.8 139.2L47.9 144.5L33.2 155.2L23.9 173.9L38.7 187.3L57.1 191.6L74.8 192.7L92.1 200.7L97.6 203.4" fill="none" stroke="#1F5F46" stroke-opacity=".16" stroke-width="34" stroke-linecap="round" stroke-linejoin="round"/>
+
+            <!-- sentiers de randonnée -->
+            <path d="M124.5 141.8L97.6 144.5L71.8 139.2L47.9 144.5L33.2 155.2L23.9 173.9L38.7 187.3L57.1 191.6L74.8 192.7L92.1 200.7L97.6 203.4" fill="none" stroke="#C0601F" stroke-width="3" stroke-dasharray="8 5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M133.4 425.0L158.4 444.2L171.3 454.9L195.3 457.6L222.9 460.3L237.6 464.6L252.4 471.0L268.9 468.3L283.7 473.7L296.6 479.0L310.6 469.9" fill="none" stroke="#C0601F" stroke-width="2.2" stroke-dasharray="7 5" stroke-opacity=".62" stroke-linecap="round"/>
+            <path d="M497.4 123.1L467.9 155.2L458.7 182.0L453.2 214.1L431.1 246.2L429.2 270.3L449.5 289.0L453.2 329.2L455.0 358.6L456.8 382.7L476.4 402.5" fill="none" stroke="#C0601F" stroke-width="2.2" stroke-dasharray="7 5" stroke-opacity=".62" stroke-linecap="round"/>
+            <path d="M525.0 465.6L528.7 479.0L532.4 492.4L534.2 505.8L537.9 511.1" fill="none" stroke="#C0601F" stroke-width="2.2" stroke-dasharray="7 5" stroke-opacity=".62" stroke-linecap="round"/>
+
+            <!-- itinéraires cyclables -->
+            <path d="M117.9 216.8L141.8 214.1L178.7 208.7L224.7 208.7L268.9 198.0L313.2 214.1L357.4 230.1L385.0 216.8L421.8 198.0L469.7 190.0L484.5 145.6" fill="none" stroke="#2F6F9E" stroke-width="2.2" stroke-dasharray="2 5" stroke-opacity=".72" stroke-linecap="round"/>
+            <path d="M47.9 144.5L44.2 182.0L114.2 214.1L133.4 256.9L156.6 275.6L161.0 305.1L156.2 355.9L146.6 406.8L133.4 425.0" fill="none" stroke="#2F6F9E" stroke-width="2.2" stroke-dasharray="2 5" stroke-opacity=".72" stroke-linecap="round"/>
+<circle cx="48" cy="176.8" r="13" fill="#1F5F46" opacity=".18"/><g transform="translate(96.9,149.3)"><path d="M0 0 l-4 -5 h-17.4 a4 4 0 0 1 -4 -4 v-11 a4 4 0 0 1 4 -4 h42.8 a4 4 0 0 1 4 4 v11 a4 4 0 0 1 -4 4 h-17.4 Z" fill="#FFFFFF" stroke="rgba(26,32,44,.14)" stroke-width=".6"/><text x="0" y="-8.5" text-anchor="middle" font-size="10.5" font-weight="700" fill="#1A202C" font-family="ui-sans-serif,system-ui,sans-serif">21 €</text></g><g transform="translate(44.9,141.3)"><path d="M0 0 l-4 -5 h-17.4 a4 4 0 0 1 -4 -4 v-11 a4 4 0 0 1 4 -4 h42.8 a4 4 0 0 1 4 4 v11 a4 4 0 0 1 -4 4 h-17.4 Z" fill="#FFFFFF" stroke="rgba(26,32,44,.14)" stroke-width=".6"/><text x="0" y="-8.5" text-anchor="middle" font-size="10.5" font-weight="700" fill="#1A202C" font-family="ui-sans-serif,system-ui,sans-serif">16 €</text></g><g transform="translate(85.5,199.1)"><path d="M0 0 l-4 -5 h-17.4 a4 4 0 0 1 -4 -4 v-11 a4 4 0 0 1 4 -4 h42.8 a4 4 0 0 1 4 4 v11 a4 4 0 0 1 -4 4 h-17.4 Z" fill="#FFFFFF" stroke="rgba(26,32,44,.14)" stroke-width=".6"/><text x="0" y="-8.5" text-anchor="middle" font-size="10.5" font-weight="700" fill="#1A202C" font-family="ui-sans-serif,system-ui,sans-serif">23 €</text></g><g transform="translate(43.8,171.3)"><path d="M0 0 l-4 -5 h-17.4 a4 4 0 0 1 -4 -4 v-11 a4 4 0 0 1 4 -4 h42.8 a4 4 0 0 1 4 4 v11 a4 4 0 0 1 -4 4 h-17.4 Z" fill="#FFFFFF" stroke="rgba(26,32,44,.14)" stroke-width=".6"/><text x="0" y="-8.5" text-anchor="middle" font-size="10.5" font-weight="700" fill="#1A202C" font-family="ui-sans-serif,system-ui,sans-serif">12 €</text></g><g transform="translate(122,205)"><circle r="12" fill="#1F5F46"/><circle r="17" fill="#1F5F46" opacity=".22"/><text y="4" text-anchor="middle" font-size="11.5" font-weight="700" fill="#fff" font-family="ui-sans-serif,system-ui,sans-serif">3</text></g><g transform="translate(48,176.8)"><path d="M0 0 l-4 -5 h-28.2 a4 4 0 0 1 -4 -4 v-11 a4 4 0 0 1 4 -4 h64.4 a4 4 0 0 1 4 4 v11 a4 4 0 0 1 -4 4 h-28.2 Z" fill="#1F5F46" stroke="rgba(26,32,44,.14)" stroke-width=".6"/><text x="0" y="-8.5" text-anchor="middle" font-size="10.5" font-weight="700" fill="#FFFFFF" font-family="ui-sans-serif,system-ui,sans-serif">18,50 €</text></g><g transform="translate(197.1,113.5)"><path d="M0 0 l-4 -5 h-17.4 a4 4 0 0 1 -4 -4 v-11 a4 4 0 0 1 4 -4 h42.8 a4 4 0 0 1 4 4 v11 a4 4 0 0 1 -4 4 h-17.4 Z" fill="rgba(255,255,255,.74)" stroke="rgba(26,32,44,.14)" stroke-width=".6"/><text x="0" y="-8.5" text-anchor="middle" font-size="10.5" font-weight="600" fill="#6B7A8D" font-family="ui-sans-serif,system-ui,sans-serif">24 €</text></g><g transform="translate(347.4,211.4)"><path d="M0 0 l-4 -5 h-17.4 a4 4 0 0 1 -4 -4 v-11 a4 4 0 0 1 4 -4 h42.8 a4 4 0 0 1 4 4 v11 a4 4 0 0 1 -4 4 h-17.4 Z" fill="rgba(255,255,255,.74)" stroke="rgba(26,32,44,.14)" stroke-width=".6"/><text x="0" y="-8.5" text-anchor="middle" font-size="10.5" font-weight="600" fill="#6B7A8D" font-family="ui-sans-serif,system-ui,sans-serif">14 €</text></g><g transform="translate(243.9,343.1)"><path d="M0 0 l-4 -5 h-17.4 a4 4 0 0 1 -4 -4 v-11 a4 4 0 0 1 4 -4 h42.8 a4 4 0 0 1 4 4 v11 a4 4 0 0 1 -4 4 h-17.4 Z" fill="rgba(255,255,255,.74)" stroke="rgba(26,32,44,.14)" stroke-width=".6"/><text x="0" y="-8.5" text-anchor="middle" font-size="10.5" font-weight="600" fill="#6B7A8D" font-family="ui-sans-serif,system-ui,sans-serif">22 €</text></g><g transform="translate(291.1,329.7)"><path d="M0 0 l-4 -5 h-17.4 a4 4 0 0 1 -4 -4 v-11 a4 4 0 0 1 4 -4 h42.8 a4 4 0 0 1 4 4 v11 a4 4 0 0 1 -4 4 h-17.4 Z" fill="rgba(255,255,255,.74)" stroke="rgba(26,32,44,.14)" stroke-width=".6"/><text x="0" y="-8.5" text-anchor="middle" font-size="10.5" font-weight="600" fill="#6B7A8D" font-family="ui-sans-serif,system-ui,sans-serif">12 €</text></g><g transform="translate(413,307.8)"><path d="M0 0 l-4 -5 h-17.4 a4 4 0 0 1 -4 -4 v-11 a4 4 0 0 1 4 -4 h42.8 a4 4 0 0 1 4 4 v11 a4 4 0 0 1 -4 4 h-17.4 Z" fill="rgba(255,255,255,.74)" stroke="rgba(26,32,44,.14)" stroke-width=".6"/><text x="0" y="-8.5" text-anchor="middle" font-size="10.5" font-weight="600" fill="#6B7A8D" font-family="ui-sans-serif,system-ui,sans-serif">25 €</text></g>
+          </svg>
+
+          <div class="mapsearch">
+            <span style="font-weight:650">Bretagne</span>
+            <span style="color:var(--muted)">12 – 15 août · 2 voyageurs</span>
+            <span class="go"><svg><use href="#search"/></svg></span>
+          </div>
+
+
+          <div class="mapctl">
+            <span class="b">+</span><span class="b">−</span>
+            <span class="b"><svg><use href="#pin"/></svg></span>
+          </div>
+
+          <div class="maplegend">
+            <div class="r"><span class="s" style="border-color:#C0601F"></span>Sentiers de randonnée (GR)</div>
+            <div class="r"><span class="s" style="border-color:#2F6F9E;border-top-style:dotted"></span>Itinéraires cyclables (EuroVelo)</div>
+            <div class="r"><span style="width:18px;height:9px;border-radius:3px;background:rgba(31,95,70,.22);flex:none"></span>Couloir de recherche · 25 km</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- bandeau de résultats -->
+      <div style="background:var(--white);border-top:1px solid var(--line);padding:14px 18px">
+        <div style="display:flex;gap:12px;overflow:hidden">
+          <div class="spot" style="width:196px;flex:none;border-color:var(--forest)">
+            <div class="img g1" style="height:78px"><span class="tag">à 1,2 km du GR 34</span></div>
+            <div class="b" style="padding:9px 11px 11px">
+              <div class="t" style="font-size:11.5px">Prairie bordée de rivière</div>
+              <div class="m" style="font-size:10.5px"><svg><use href="#pin"/></svg>Quimper</div>
+              <div class="pr" style="margin-top:6px"><b style="font-size:12.5px">18,50 € <span style="font-size:10.5px">/ nuit</span></b><span class="st" style="font-size:10px">★ 4,8</span></div>
+            </div>
+          </div>
+          <div class="spot" style="width:196px;flex:none">
+            <div class="img g6" style="height:78px"><span class="tag">à 3,8 km</span></div>
+            <div class="b" style="padding:9px 11px 11px">
+              <div class="t" style="font-size:11.5px">Jardin clos face à la baie</div>
+              <div class="m" style="font-size:10.5px"><svg><use href="#pin"/></svg>Saint-Brieuc</div>
+              <div class="pr" style="margin-top:6px"><b style="font-size:12.5px">21,00 € <span style="font-size:10.5px">/ nuit</span></b><span class="st" style="font-size:10px">★ 4,7</span></div>
+            </div>
+          </div>
+          <div class="spot" style="width:196px;flex:none">
+            <div class="img g4" style="height:78px"><span class="tag">à 6,4 km</span></div>
+            <div class="b" style="padding:9px 11px 11px">
+              <div class="t" style="font-size:11.5px">Verger en bord de lande</div>
+              <div class="m" style="font-size:10.5px"><svg><use href="#pin"/></svg>Plouescat</div>
+              <div class="pr" style="margin-top:6px"><b style="font-size:12.5px">16,00 € <span style="font-size:10.5px">/ nuit</span></b><span class="st" style="font-size:10px">★ 4,9</span></div>
+            </div>
+          </div>
+          <div class="spot" style="width:196px;flex:none">
+            <div class="img g2" style="height:78px"><span class="tag">à 9,1 km</span></div>
+            <div class="b" style="padding:9px 11px 11px">
+              <div class="t" style="font-size:11.5px">Terrain face à l'océan</div>
+              <div class="m" style="font-size:10.5px"><svg><use href="#pin"/></svg>Carnac</div>
+              <div class="pr" style="margin-top:6px"><b style="font-size:12.5px">23,00 € <span style="font-size:10.5px">/ nuit</span></b><span class="st" style="font-size:10px">★ 4,6</span></div>
+            </div>
+          </div>
+          <div class="spot" style="width:196px;flex:none">
+            <div class="img g5" style="height:78px"><span class="tag">à 12,7 km</span></div>
+            <div class="b" style="padding:9px 11px 11px">
+              <div class="t" style="font-size:11.5px">Pré de la ferme du Ménez</div>
+              <div class="m" style="font-size:10.5px"><svg><use href="#pin"/></svg>Locronan</div>
+              <div class="pr" style="margin-top:6px"><b style="font-size:12.5px">12,00 € <span style="font-size:10.5px">/ nuit</span></b><span class="st" style="font-size:10px">★ 5,0</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div></div>
+  </div>
+
+  <!-- ══════════════ 3 · annonce ══════════════ -->
+  <div class="caption">
+    <span class="n">03</span>
+    <h2>Page d'une annonce</h2>
+    <p>Galerie, équipements, avis, et le module de réservation avec son décompte.</p>
+  </div>
+
+  <div class="browser">
+    <div class="chrome"><i></i><i></i><i></i><span class="url">campnest.fr/spots/prairie-riviere-quimper</span></div>
+    <div class="viewport"><div class="ui">
+
+      <div class="nav">
+        <span class="brand"><span class="m"><svg><use href="#tent"/></svg></span>CampNest</span>
+        <span class="links"><span class="on">Explorer</span><span>Itinéraires</span><span>Devenir hôte</span></span>
+        <span class="right"><span class="btn o">Mes séjours</span><span class="avatar"></span></span>
+      </div>
+
+      <div style="padding:20px 26px 26px">
+        <h3 style="font-size:22px;font-weight:800">Prairie bordée de rivière avec vue sur les collines</h3>
+        <p style="font-size:12.5px;color:var(--muted);margin:6px 0 14px;display:flex;align-items:center;gap:12px">
+          <span style="color:var(--slate);font-weight:650"><svg style="width:12px;height:12px;color:var(--clay)"><use href="#star"/></svg> 4,8 · 12 avis</span>
+          <span>·</span><span>Quimper, Finistère</span><span>·</span><span>Emplacement tente</span>
+        </p>
+
+        <div style="display:grid;grid-template-columns:2fr 1fr 1fr;grid-template-rows:96px 96px;gap:8px;border-radius:14px;overflow:hidden">
+          <div class="g1" style="grid-row:span 2"></div>
+          <div class="g4"></div><div class="g2"></div><div class="g6"></div>
+          <div class="g5" style="position:relative">
+            <span style="position:absolute;right:8px;bottom:8px;background:rgba(255,255,255,.94);border-radius:6px;padding:3px 8px;font-size:10.5px;font-weight:650">+ 5 photos</span>
+          </div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 316px;gap:26px;margin-top:22px;align-items:start">
+          <div>
+            <p style="font-size:13px;line-height:1.7;margin:0 0 18px">
+              Un grand terrain plat et calme au bord de l'Odet, à 10 minutes du centre de Quimper.
+              Idéal pour une tente ou un van aménagé : vous êtes seuls sur la parcelle, avec un
+              accès direct à la rivière pour la baignade. Les feux de camp sont autorisés dans le
+              foyer prévu à cet effet.
+            </p>
+
+            <h4 style="font-size:14px;margin-bottom:11px">Équipements</h4>
+            <div class="amen" style="margin-bottom:20px">
+              <div><svg><use href="#drop"/></svg>Point d'eau potable</div>
+              <div><svg><use href="#wc"/></svg>Toilettes sèches</div>
+              <div><svg><use href="#shower"/></svg>Douche solaire</div>
+              <div><svg><use href="#fire"/></svg>Feu de camp autorisé</div>
+              <div><svg><use href="#paw"/></svg>Animaux bienvenus</div>
+              <div style="color:var(--muted)"><svg style="color:var(--muted);opacity:.5"><use href="#bolt"/></svg>Pas d'électricité</div>
+            </div>
+
+            <div class="legal" style="margin-bottom:20px">
+              <div class="h"><svg><use href="#scale"/></svg>Camping chez l'habitant</div>
+              <p>
+                Ce terrain accueille au maximum <b>4 campeurs</b> et <b>1 emplacement</b>,
+                conformément au Code de l'urbanisme (art. R111-32). L'hôte a déclaré
+                <b>2 jours d'accueil</b> sur les 90 autorisés cette année.
+              </p>
+            </div>
+
+            <h4 style="font-size:14px;margin-bottom:11px">Avis des voyageurs</h4>
+            <div style="display:flex;gap:12px">
+              <div class="surface pad" style="flex:1">
+                <div style="display:flex;align-items:center;gap:9px">
+                  <span class="avatar" style="width:26px;height:26px;background:linear-gradient(140deg,#C09A6B,#7A6045)"></span>
+                  <div><div style="font-size:12px;font-weight:700">Camille</div><div style="font-size:10.5px;color:var(--muted)">Juillet 2026</div></div>
+                  <span style="margin-left:auto;font-size:11px;color:var(--clay)"><svg style="width:11px;height:11px"><use href="#star"/></svg> 5,0</span>
+                </div>
+                <p style="font-size:12px;color:var(--muted);margin:9px 0 0;line-height:1.55">
+                  Endroit magique, on entend la rivière toute la nuit. Marie nous a laissé du bois
+                  pour le feu. On revient l'an prochain.
+                </p>
+              </div>
+              <div class="surface pad" style="flex:1">
+                <div style="display:flex;align-items:center;gap:9px">
+                  <span class="avatar" style="width:26px;height:26px;background:linear-gradient(140deg,#6E9BA8,#2F5F72)"></span>
+                  <div><div style="font-size:12px;font-weight:700">Thomas</div><div style="font-size:10.5px;color:var(--muted)">Juin 2026</div></div>
+                  <span style="margin-left:auto;font-size:11px;color:var(--clay)"><svg style="width:11px;height:11px"><use href="#star"/></svg> 4,5</span>
+                </div>
+                <p style="font-size:12px;color:var(--muted);margin:9px 0 0;line-height:1.55">
+                  Très calme et bien situé pour rayonner en Finistère. Prévoir des chaussures,
+                  l'accès à l'eau est un peu boueux après la pluie.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="surface pad" style="position:sticky;top:0">
+            <div style="display:flex;align-items:baseline;justify-content:space-between">
+              <div><b style="font-size:21px;font-weight:800">18,50 €</b><span style="font-size:12px;color:var(--muted)"> / nuit</span></div>
+              <span style="font-size:11.5px;color:var(--muted)"><svg style="width:11px;height:11px;color:var(--clay)"><use href="#star"/></svg> 4,8</span>
+            </div>
+
+            <div style="border:1px solid var(--line);border-radius:11px;margin:13px 0 12px;overflow:hidden">
+              <div style="display:grid;grid-template-columns:1fr 1fr">
+                <div style="padding:9px 12px;border-right:1px solid var(--line)"><div class="k" style="font-size:9.5px;font-weight:750;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)">Arrivée</div><div style="font-size:12.5px;font-weight:600">12 août 2026</div></div>
+                <div style="padding:9px 12px"><div class="k" style="font-size:9.5px;font-weight:750;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)">Départ</div><div style="font-size:12.5px;font-weight:600">15 août 2026</div></div>
+              </div>
+              <div style="padding:9px 12px;border-top:1px solid var(--line)"><div class="k" style="font-size:9.5px;font-weight:750;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)">Voyageurs · emplacements</div><div style="font-size:12.5px;font-weight:600">2 voyageurs · 1 tente</div></div>
+            </div>
+
+            <div class="row"><span class="k">18,50 € × 3 nuits</span><span class="v">55,50 €</span></div>
+            <div class="row"><span class="k">Frais de service (5 %)</span><span class="v">2,78 €</span></div>
+            <div class="row"><span class="k">Frais de dossier</span><span class="v">1,50 €</span></div>
+            <div class="row tot"><span>Total</span><span>59,78 €</span></div>
+
+            <span class="btn p full" style="margin-top:13px">Réserver</span>
+            <span class="btn o full" style="margin-top:8px"><svg><use href="#msg"/></svg>Contacter Marie</span>
+            <p style="font-size:11px;color:var(--muted);margin:11px 0 0;display:flex;gap:6px;line-height:1.5">
+              <svg style="width:12px;height:12px;color:var(--forest);flex:none;margin-top:2px"><use href="#lock"/></svg>
+              Paiement séquestré : Marie n'est créditée qu'à la fin de votre séjour.
+            </p>
+          </div>
+        </div>
+      </div>
+
+    </div></div>
+  </div>
+
+  <!-- ══════════════ 3 · portefeuille hôte ══════════════ -->
+  <div class="caption">
+    <span class="n">04</span>
+    <h2>Espace hôte — portefeuille</h2>
+    <p>Solde, reversements à venir, abonnements et retrait bancaire.</p>
+  </div>
+
+  <div class="browser">
+    <div class="chrome"><i></i><i></i><i></i><span class="url">campnest.fr/dashboard?tab=wallet</span></div>
+    <div class="viewport"><div class="ui">
+
+      <div class="nav">
+        <span class="brand"><span class="m"><svg><use href="#tent"/></svg></span>CampNest</span>
+        <span class="right"><span class="btn o">Explorer</span><span class="avatar"></span></span>
+      </div>
+      <div class="tabs">
+        <div><svg><use href="#cal"/></svg>Mes réservations</div>
+        <div><svg><use href="#msg"/></svg>Messages <span class="badge-n">1</span></div>
+        <div class="on"><svg><use href="#wallet"/></svg>Portefeuille</div>
+        <div><svg><use href="#tent"/></svg>Mes annonces</div>
+        <div><svg><use href="#hourglass"/></svg>Demandes reçues <span class="badge-n">1</span></div>
+      </div>
+
+      <div style="padding:22px 26px 26px;display:grid;grid-template-columns:1fr 340px;gap:18px;align-items:start">
+        <div style="display:grid;gap:16px">
+
+          <div class="surface pad">
+            <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:18px">
+              <div>
+                <div class="kpi-k" style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:750;display:flex;align-items:center;gap:6px">
+                  <svg style="width:13px;height:13px"><use href="#wallet"/></svg>Solde disponible
+                </div>
+                <div style="font-size:38px;font-weight:800;letter-spacing:-.035em;margin-top:5px">218,45 €</div>
+                <p style="font-size:11.5px;color:var(--muted);margin:7px 0 0;max-width:44ch;line-height:1.55">
+                  Votre solde provient uniquement des locations de vos emplacements. Il peut régler
+                  vos propres séjours ou être viré sur votre compte bancaire.
+                </p>
+              </div>
+              <div style="display:grid;gap:8px;min-width:170px">
+                <span class="btn p full"><svg><use href="#bank"/></svg>Retirer sur mon compte</span>
+                <span class="btn o full">Ajouter un compte</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="surface pad">
+            <h4 style="font-size:14px;margin-bottom:4px">Reversements à venir</h4>
+            <p style="font-size:11.5px;color:var(--muted);margin:0 0 13px">
+              Montants détenus en séquestre, versés à la fin de chaque séjour.
+            </p>
+
+            <div style="border:1px solid var(--line);border-radius:11px;padding:12px 13px;margin-bottom:9px;display:flex;align-items:center;gap:13px">
+              <span class="g1" style="width:46px;height:40px;border-radius:8px;flex:none"></span>
+              <div style="flex:1;min-width:0">
+                <div style="font-size:12.5px;font-weight:650">Prairie bordée de rivière — Camille D.</div>
+                <div style="font-size:11px;color:var(--muted);margin-top:2px">12 → 15 août · 3 nuits · 2 voyageurs</div>
+              </div>
+              <span class="badge ok">Acceptée</span>
+              <div style="text-align:right"><div style="font-size:14px;font-weight:750">52,72 €</div><div style="font-size:10.5px;color:var(--muted)">le 15 août</div></div>
+            </div>
+
+            <div style="border:1px solid var(--line);border-radius:11px;padding:12px 13px;display:flex;align-items:center;gap:13px;background:#FFFCF8">
+              <span class="g4" style="width:46px;height:40px;border-radius:8px;flex:none"></span>
+              <div style="flex:1;min-width:0">
+                <div style="font-size:12.5px;font-weight:650">Clairière en lisière de forêt — Thomas R.</div>
+                <div style="font-size:11px;color:var(--clay-deep);margin-top:2px">Acceptez la demande pour débloquer ce versement</div>
+              </div>
+              <span class="btn c">Accepter</span>
+              <div style="text-align:right"><div style="font-size:14px;font-weight:750">26,60 €</div><div style="font-size:10.5px;color:var(--muted)">en attente</div></div>
+            </div>
+          </div>
+
+          <div class="surface pad">
+            <h4 style="font-size:14px;margin-bottom:4px;display:flex;align-items:center;gap:7px">
+              <svg style="width:15px;height:15px;color:var(--clay)"><use href="#spark"/></svg>Vos abonnements Pass
+            </h4>
+            <p style="font-size:11.5px;color:var(--muted);margin:0 0 13px">
+              Un Pass supprime la commission correspondante sur tous vos séjours, sans limite.
+            </p>
+            <div class="grid2">
+              <div style="border:1px solid var(--forest);background:var(--forest-soft);border-radius:11px;padding:13px">
+                <div style="display:flex;justify-content:space-between;align-items:baseline"><b style="font-size:12.5px">Pass hôte</b><b style="font-size:12.5px">9,99 € <span style="font-weight:400;color:var(--muted)">/mois</span></b></div>
+                <p style="font-size:11px;color:var(--muted);margin:4px 0 0">Zéro commission sur vos nuitées</p>
+                <p style="font-size:11px;color:var(--forest);margin:9px 0 0;display:flex;align-items:center;gap:5px"><svg style="width:11px;height:11px"><use href="#check"/></svg>Actif jusqu'au 9 septembre 2026</p>
+                <span class="btn o full" style="margin-top:9px">Prolonger un mois</span>
+              </div>
+              <div style="border:1px solid var(--line);border-radius:11px;padding:13px">
+                <div style="display:flex;justify-content:space-between;align-items:baseline"><b style="font-size:12.5px">Pass voyageur</b><b style="font-size:12.5px">4,99 € <span style="font-weight:400;color:var(--muted)">/mois</span></b></div>
+                <p style="font-size:11px;color:var(--muted);margin:4px 0 0">Zéro frais de service sur vos réservations</p>
+                <span class="btn o full" style="margin-top:9px">Souscrire</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div style="display:grid;gap:16px">
+          <div class="surface pad">
+            <h4 style="font-size:13px;margin-bottom:11px">Derniers mouvements</h4>
+            <div style="display:grid;gap:2px">
+              <div class="row" style="border-bottom:1px solid var(--line)"><span class="k">Revenu — Prairie rivière<br><span style="font-size:10px">2 août · 4 nuits</span></span><span class="v" style="color:var(--forest)">+ 70,30 €</span></div>
+              <div class="row" style="border-bottom:1px solid var(--line)"><span class="k">Pass hôte — 1 mois<br><span style="font-size:10px">1<sup>er</sup> août</span></span><span class="v">− 9,99 €</span></div>
+              <div class="row" style="border-bottom:1px solid var(--line)"><span class="k">Virement bancaire<br><span style="font-size:10px">28 juillet</span></span><span class="v">− 150,00 €</span></div>
+              <div class="row"><span class="k">Revenu — Clairière<br><span style="font-size:10px">21 juillet · 3 nuits</span></span><span class="v" style="color:var(--forest)">+ 39,90 €</span></div>
+            </div>
+          </div>
+
+          <div class="surface pad">
+            <h4 style="font-size:13px;margin-bottom:4px">Compte bancaire</h4>
+            <p style="font-size:11px;color:var(--muted);margin:0 0 11px">Chiffré, seuls les derniers chiffres sont affichés.</p>
+            <div style="display:flex;align-items:center;gap:10px;border:1px solid var(--line);border-radius:10px;padding:11px 12px">
+              <svg style="width:16px;height:16px;color:var(--forest)"><use href="#bank"/></svg>
+              <div style="flex:1"><div style="font-size:12px;font-weight:650">Marie Lefèvre</div><div style="font-size:11px;color:var(--muted);font-family:ui-monospace,Menlo,monospace">FR76 •••• •••• 4291</div></div>
+              <svg style="width:13px;height:13px;color:var(--muted)"><use href="#lock"/></svg>
+            </div>
+            <p style="font-size:10.5px;color:var(--muted);margin:10px 0 0;line-height:1.5">
+              Un retrait demande la confirmation de votre mot de passe. Minimum 10 €.
+            </p>
+          </div>
+        </div>
+      </div>
+
+    </div></div>
+  </div>
+
+  <!-- ══════════════ 4 · mes annonces ══════════════ -->
+  <div class="caption">
+    <span class="n">05</span>
+    <h2>Espace hôte — mes annonces</h2>
+    <p>Le quota légal des 90 jours d'accueil, visible avant qu'il ne bloque une réservation.</p>
+  </div>
+
+  <div class="browser">
+    <div class="chrome"><i></i><i></i><i></i><span class="url">campnest.fr/dashboard?tab=listings</span></div>
+    <div class="viewport"><div class="ui">
+
+      <div class="nav">
+        <span class="brand"><span class="m"><svg><use href="#tent"/></svg></span>CampNest</span>
+        <span class="right"><span class="btn p"><svg><use href="#plus"/></svg>Nouvelle annonce</span><span class="avatar"></span></span>
+      </div>
+      <div class="tabs">
+        <div><svg><use href="#cal"/></svg>Mes réservations</div>
+        <div><svg><use href="#msg"/></svg>Messages</div>
+        <div><svg><use href="#wallet"/></svg>Portefeuille</div>
+        <div class="on"><svg><use href="#tent"/></svg>Mes annonces</div>
+        <div><svg><use href="#hourglass"/></svg>Demandes reçues</div>
+      </div>
+
+      <div style="padding:22px 26px 26px;display:grid;gap:13px">
+
+        <div class="surface pad" style="display:flex;gap:16px">
+          <span class="g1" style="width:168px;height:118px;border-radius:11px;flex:none"></span>
+          <div style="flex:1;min-width:0">
+            <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px">
+              <div>
+                <div style="font-size:14px;font-weight:750">Prairie bordée de rivière avec vue sur les collines</div>
+                <div style="font-size:11.5px;color:var(--muted);margin-top:4px;display:flex;align-items:center;gap:5px"><svg style="width:12px;height:12px"><use href="#pin"/></svg>Quimper · Emplacement tente</div>
+              </div>
+              <span class="badge ok">En ligne</span>
+            </div>
+
+            <div class="quota" style="margin-top:11px">
+              <div class="top"><span class="k">Jours d'accueil 2026</span><span class="v">32 / 90</span></div>
+              <div class="track"><span class="fill" style="width:36%"></span></div>
+            </div>
+
+            <div style="display:flex;align-items:baseline;gap:18px;margin-top:11px;font-size:11.5px;color:var(--muted)">
+              <span><b style="color:var(--slate);font-size:13px">18,50 €</b> / nuit — soit <b style="color:var(--slate)">17,58 €</b> net (−5 % de commission)</span>
+              <span>4 voyageurs · 1 emplacement</span>
+              <span>12 réservations</span>
+              <span style="margin-left:auto;display:flex;gap:8px">
+                <span class="btn o">Modifier</span><span class="btn o">Hors ligne</span>
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div class="surface pad" style="display:flex;gap:16px">
+          <span class="g4" style="width:168px;height:118px;border-radius:11px;flex:none"></span>
+          <div style="flex:1;min-width:0">
+            <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px">
+              <div>
+                <div style="font-size:14px;font-weight:750">Clairière isolée en lisière de forêt</div>
+                <div style="font-size:11.5px;color:var(--muted);margin-top:4px;display:flex;align-items:center;gap:5px"><svg style="width:12px;height:12px"><use href="#pin"/></svg>Quimper · Emplacement tente</div>
+              </div>
+              <span class="badge ok">En ligne</span>
+            </div>
+
+            <div class="quota" style="margin-top:11px;border-color:#F0C9A8">
+              <div class="top"><span class="k">Jours d'accueil 2026 · 2 annonces sur ce terrain</span><span class="v" style="color:var(--clay-deep)">79 / 90</span></div>
+              <div class="track"><span class="fill warn" style="width:88%"></span></div>
+              <p style="font-size:10.5px;color:var(--clay-deep);margin:7px 0 0;line-height:1.5">
+                Il vous reste <b>11 jours d'accueil</b> cette année sur ce terrain. Au-delà, une
+                autorisation d'aménager délivrée par votre mairie est nécessaire.
+              </p>
+            </div>
+
+            <div style="display:flex;align-items:baseline;gap:18px;margin-top:11px;font-size:11.5px;color:var(--muted)">
+              <span><b style="color:var(--slate);font-size:13px">14,00 €</b> / nuit — soit <b style="color:var(--slate)">13,30 €</b> net (−5 % de commission)</span>
+              <span>6 voyageurs · 2 emplacements</span>
+              <span>9 réservations</span>
+              <span style="margin-left:auto;display:flex;gap:8px">
+                <span class="btn o">Modifier</span><span class="btn o">Hors ligne</span>
+              </span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div></div>
+  </div>
+
+  <!-- ══════════════ 5 · admin ══════════════ -->
+  <div class="caption">
+    <span class="n">06</span>
+    <h2>Compte de l'entreprise</h2>
+    <p>Revenus, séquestre et journal comptable, avec contrôle de cohérence permanent.</p>
+  </div>
+
+  <div class="browser">
+    <div class="chrome"><i></i><i></i><i></i><span class="url">campnest.fr/admin</span></div>
+    <div class="viewport"><div class="ui">
+
+      <div class="nav">
+        <span class="brand"><span class="m"><svg><use href="#tent"/></svg></span>CampNest</span>
+        <span class="links"><span style="color:var(--muted)">Compte de l'entreprise</span></span>
+        <span class="right"><span class="btn o">Actualiser</span><span class="avatar" style="background:linear-gradient(140deg,#6E9BA8,#1F5F46)"></span></span>
+      </div>
+      <div class="tabs">
+        <div class="on"><svg><use href="#trend"/></svg>Vue d'ensemble</div>
+        <div>Journal des revenus</div><div>Réservations</div><div>Comptes</div><div>Annonces</div>
+      </div>
+
+      <div style="padding:22px 26px 26px">
+        <div class="grid3" style="margin-bottom:16px">
+          <div class="kpi hot">
+            <div class="k"><svg><use href="#trend"/></svg>Revenu acquis</div>
+            <div class="n">44,55 €</div>
+            <div class="h">Commissions 34,56 € + abonnements 9,99 €</div>
+          </div>
+          <div class="kpi">
+            <div class="k"><svg><use href="#cal"/></svg>Volume réservé</div>
+            <div class="n">512,40 €</div>
+            <div class="h">Montant total réglé par les voyageurs</div>
+          </div>
+          <div class="kpi">
+            <div class="k"><svg><use href="#wallet"/></svg>Trésorerie détenue</div>
+            <div class="n">312,90 €</div>
+            <div class="h">Séquestre + soldes hôtes − virements</div>
+          </div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1.35fr 1fr;gap:16px;align-items:start">
+          <div class="surface pad">
+            <h4 style="font-size:14px;margin-bottom:5px">Commission de service</h4>
+            <p style="font-size:11.5px;color:var(--muted);margin:0 0 14px;line-height:1.6">
+              Une commission suit trois étapes : <b style="color:var(--slate)">en attente</b> tant que
+              l'hôte n'a pas accepté, <b style="color:var(--slate)">confirmée</b> une fois la
+              réservation acceptée, puis <b style="color:var(--slate)">acquise</b> à la fin du séjour
+              — au moment exact où l'hôte est crédité.
+            </p>
+            <div class="grid2">
+              <div><div class="row" style="padding:0"><span class="k">① En attente d'acceptation</span><span class="v">4,50 €</span></div><div style="font-size:10.5px;color:var(--muted);margin-top:2px">1 séjour — remboursable si refus</div></div>
+              <div><div class="row" style="padding:0"><span class="k">② Acceptée, séjour à venir</span><span class="v">9,00 €</span></div><div style="font-size:10.5px;color:var(--muted);margin-top:2px">Détenue en séquestre</div></div>
+              <div><div class="row" style="padding:0"><span class="k">③ Acquise</span><span class="v">34,56 €</span></div><div style="font-size:10.5px;color:var(--muted);margin-top:2px">Inscrite au journal</div></div>
+              <div><div class="row" style="padding:0"><span class="k">Abonnements Pass</span><span class="v">9,99 €</span></div><div style="font-size:10.5px;color:var(--muted);margin-top:2px">Acquis dès l'encaissement</div></div>
+            </div>
+            <div style="margin-top:14px;background:var(--forest-soft);color:var(--forest);border-radius:10px;padding:11px 13px;font-size:11.5px;display:flex;align-items:center;gap:8px">
+              <svg style="width:13px;height:13px"><use href="#check"/></svg>
+              Journal comptable et réservations concordent (44,55 €).
+            </div>
+          </div>
+
+          <div class="surface pad">
+            <h4 style="font-size:14px;margin-bottom:11px">Journal des revenus</h4>
+            <div style="display:grid;gap:0">
+              <div class="row" style="border-bottom:1px solid var(--line)"><span class="k">Commission — Van Sarlat<br><span style="font-size:10px">2 août 2026 · 5 nuits à 22 €</span></span><span class="v">+ 12,50 €</span></div>
+              <div class="row" style="border-bottom:1px solid var(--line)"><span class="k">Pass hôte — 1 mois<br><span style="font-size:10px">1<sup>er</sup> août 2026</span></span><span class="v">+ 9,99 €</span></div>
+              <div class="row" style="border-bottom:1px solid var(--line)"><span class="k">Commission — Roulotte<br><span style="font-size:10px">27 juillet 2026 · 3 nuits à 24 €</span></span><span class="v">+ 8,70 €</span></div>
+              <div class="row"><span class="k">Commission — Prairie rivière<br><span style="font-size:10px">14 juillet 2026 · 3 nuits à 18,50 €</span></span><span class="v">+ 7,06 €</span></div>
+            </div>
+            <p style="font-size:10.5px;color:var(--muted);margin:12px 0 0;line-height:1.55">
+              Journal immuable : chaque ligne porte son solde après mouvement. Un séjour ne peut
+              être comptabilisé qu'une fois.
+            </p>
+          </div>
+        </div>
+      </div>
+
+    </div></div>
+  </div>
+
+  <!-- ══════════════ mobile ══════════════ -->
+  <div class="caption">
+    <span class="n">07</span>
+    <h2>Application mobile</h2>
+    <p>iOS et Android. Mêmes parcours, mêmes règles — le calcul reste côté serveur.</p>
+  </div>
+
+  <div class="phones">
+
+    <!-- explorer -->
+    <div class="phone">
+      <div class="frame"><div class="screen ui">
+        <div class="statusbar"><span>9:41</span><span class="dots"><i></i><i></i><i></i><i style="height:9px"></i></span></div>
+        <div class="scroll">
+          <div class="m-head"><span class="t">Explorer</span><span class="s">8 emplacements</span></div>
+          <div class="m-search"><svg><use href="#search"/></svg>Où souhaitez-vous camper ?</div>
+          <div class="m-chips">
+            <span class="f-chip on"><svg><use href="#tent"/></svg>Tente</span>
+            <span class="f-chip">Van</span>
+            <span class="f-chip">Insolite</span>
+            <span class="f-chip">GR 34</span>
+          </div>
+          <div class="m-card">
+            <div class="img g1"><span class="fav" style="position:absolute;top:8px;right:8px;width:22px;height:22px;border-radius:50%;background:rgba(255,255,255,.9);display:grid;place-items:center"><svg style="width:11px;height:11px;color:var(--clay-deep)"><use href="#heart"/></svg></span></div>
+            <div class="b">
+              <div class="t">Prairie bordée de rivière</div>
+              <div class="m">Quimper · ★ 4,8 (12)</div>
+              <div class="p">18,50 € <span>/ nuit</span></div>
+            </div>
+          </div>
+          <div class="m-card">
+            <div class="img g2"></div>
+            <div class="b">
+              <div class="t">Bord de lac, ponton privé</div>
+              <div class="m">Aiguebelette-le-Lac · ★ 4,9 (8)</div>
+              <div class="p">25,00 € <span>/ nuit</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="tabbar">
+          <div class="on"><svg><use href="#search"/></svg>Explorer</div>
+          <div><svg><use href="#heart"/></svg>Favoris</div>
+          <div><svg><use href="#msg"/></svg>Messages</div>
+          <div><svg><use href="#cal"/></svg>Séjours</div>
+          <div><svg><use href="#user"/></svg>Profil</div>
+        </div>
+      </div></div>
+      <p class="lbl">Explorer</p>
+    </div>
+
+    <!-- détail -->
+    <div class="phone">
+      <div class="frame"><div class="screen ui">
+        <div class="g1" style="height:172px;position:relative;flex:none">
+          <span style="position:absolute;top:14px;left:14px;width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,.92);display:grid;place-items:center;font-size:15px;font-weight:700;color:var(--slate)">‹</span>
+          <span style="position:absolute;top:14px;right:14px;width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,.92);display:grid;place-items:center"><svg style="width:13px;height:13px;color:var(--clay-deep)"><use href="#heart"/></svg></span>
+          <span style="position:absolute;right:14px;bottom:12px;background:rgba(255,255,255,.94);border-radius:6px;padding:2px 8px;font-size:10px;font-weight:650">1 / 6</span>
+        </div>
+        <div class="scroll" style="padding:14px 16px 0">
+          <div style="font-size:15px;font-weight:800;line-height:1.25">Prairie bordée de rivière avec vue sur les collines</div>
+          <div style="font-size:11px;color:var(--muted);margin-top:5px">Quimper, Finistère · ★ 4,8 (12 avis)</div>
+          <p style="font-size:11.5px;line-height:1.6;color:var(--slate);margin:11px 0 0">
+            Un grand terrain plat et calme au bord de l'Odet. Vous êtes seuls sur la parcelle,
+            avec un accès direct à la rivière.
+          </p>
+          <div class="amen" style="grid-template-columns:1fr 1fr;font-size:11px;margin-top:13px;gap:8px 10px">
+            <div><svg><use href="#drop"/></svg>Point d'eau</div>
+            <div><svg><use href="#wc"/></svg>Toilettes sèches</div>
+            <div><svg><use href="#shower"/></svg>Douche solaire</div>
+            <div><svg><use href="#fire"/></svg>Feu de camp</div>
+          </div>
+          <div class="legal" style="margin-top:13px">
+            <div class="h" style="font-size:11px"><svg><use href="#scale"/></svg>Camping chez l'habitant</div>
+            <p style="font-size:10px">Maximum <b>4 campeurs</b> et <b>1 emplacement</b> (art. R111-32).</p>
+          </div>
+        </div>
+        <div style="border-top:1px solid var(--line);background:var(--white);padding:11px 16px 14px;display:flex;align-items:center;gap:12px;flex:none">
+          <div><b style="font-size:16px;font-weight:800">18,50 €</b><span style="font-size:11px;color:var(--muted)"> / nuit</span></div>
+          <span class="btn p" style="margin-left:auto;padding:9px 20px">Réserver</span>
+        </div>
+      </div></div>
+      <p class="lbl">Détail d'une annonce</p>
+    </div>
+
+    <!-- réservation -->
+    <div class="phone">
+      <div class="frame"><div class="screen ui">
+        <div class="statusbar"><span>9:41</span><span class="dots"><i></i><i></i><i></i><i style="height:9px"></i></span></div>
+        <div style="padding:4px 16px 10px;display:flex;align-items:center;gap:10px;flex:none">
+          <span style="font-size:16px;font-weight:700;color:var(--slate)">‹</span>
+          <span style="font-size:14px;font-weight:750">Demande de réservation</span>
+        </div>
+        <div class="scroll">
+          <div class="m-label">Dates</div>
+          <div class="m-box" style="display:flex;gap:10px">
+            <div style="flex:1"><div style="font-size:9.5px;color:var(--muted);font-weight:700;letter-spacing:.06em;text-transform:uppercase">Arrivée</div><div style="font-size:12.5px;font-weight:650">12 août 2026</div></div>
+            <div style="flex:1;border-left:1px solid var(--line);padding-left:10px"><div style="font-size:9.5px;color:var(--muted);font-weight:700;letter-spacing:.06em;text-transform:uppercase">Départ</div><div style="font-size:12.5px;font-weight:650">15 août 2026</div></div>
+          </div>
+
+          <div class="m-label">Voyageurs</div>
+          <div class="stepper"><span class="b">−</span><span class="v">2 voyageurs</span><span class="b">+</span></div>
+
+          <div class="m-label">Tentes ou caravanes</div>
+          <div class="stepper"><span class="b" style="color:var(--line)">−</span><span class="v">1 emplacement</span><span class="b">+</span></div>
+          <p style="font-size:9.5px;color:var(--muted);padding:6px 16px 0;line-height:1.5">
+            La loi limite un terrain privé à 6 tentes ou caravanes simultanées.
+          </p>
+
+          <div class="m-label">Paiement</div>
+          <div class="pay on"><svg><use href="#card"/></svg><div style="flex:1"><div class="t">Carte bancaire</div><div class="s">Visa, Mastercard, CB</div></div><svg style="width:13px;height:13px"><use href="#check"/></svg></div>
+          <div class="pay"><svg><use href="#apple"/></svg><div style="flex:1"><div class="t">Apple Pay</div><div class="s">Paiement en un geste</div></div></div>
+          <div class="pay"><svg><use href="#wallet"/></svg><div style="flex:1"><div class="t">Mon portefeuille</div><div class="s">Solde : 218,45 €</div></div></div>
+
+          <div class="m-label">Récapitulatif</div>
+          <div class="m-box">
+            <div class="row" style="font-size:11.5px;padding:5px 0"><span class="k">18,50 € × 3 nuits</span><span class="v">55,50 €</span></div>
+            <div class="row" style="font-size:11.5px;padding:5px 0"><span class="k">Frais de service (5 %)</span><span class="v">2,78 €</span></div>
+            <div class="row" style="font-size:11.5px;padding:5px 0"><span class="k">Frais de dossier</span><span class="v">1,50 €</span></div>
+            <div class="row tot" style="font-size:13px;padding-top:9px"><span>Total</span><span>59,78 €</span></div>
+          </div>
+        </div>
+        <div style="border-top:1px solid var(--line);background:var(--white);padding:11px 16px 14px;flex:none">
+          <span class="btn p full">Envoyer ma demande</span>
+        </div>
+      </div></div>
+      <p class="lbl">Demande de réservation</p>
+    </div>
+
+    <!-- portefeuille -->
+    <div class="phone">
+      <div class="frame"><div class="screen ui">
+        <div class="statusbar"><span>9:41</span><span class="dots"><i></i><i></i><i></i><i style="height:9px"></i></span></div>
+        <div style="padding:4px 16px 10px;display:flex;align-items:center;gap:10px;flex:none">
+          <span style="font-size:16px;font-weight:700;color:var(--slate)">‹</span>
+          <span style="font-size:14px;font-weight:750">Mon portefeuille</span>
+        </div>
+        <div class="scroll">
+          <div class="m-box" style="text-align:left">
+            <div style="font-size:9.5px;font-weight:750;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:6px">
+              <svg style="width:12px;height:12px"><use href="#wallet"/></svg>Solde disponible
+            </div>
+            <div style="font-size:30px;font-weight:800;letter-spacing:-.03em;margin-top:4px">218,45 €</div>
+            <p style="font-size:10px;color:var(--muted);margin:6px 0 0;line-height:1.5">
+              Alimenté uniquement par la location de vos emplacements.
+            </p>
+            <span class="btn p full" style="margin-top:11px;padding:10px"><svg><use href="#bank"/></svg>Retirer sur mon compte</span>
+          </div>
+
+          <div class="m-label">Reversements à venir</div>
+          <div class="m-box" style="display:flex;align-items:center;gap:10px">
+            <span class="g1" style="width:34px;height:30px;border-radius:7px;flex:none"></span>
+            <div style="flex:1;min-width:0"><div style="font-size:11px;font-weight:650">Prairie rivière — Camille D.</div><div style="font-size:9.5px;color:var(--muted)">Versé le 15 août</div></div>
+            <b style="font-size:12px">52,72 €</b>
+          </div>
+
+          <div class="m-label">Vos abonnements</div>
+          <div class="m-box" style="border-color:var(--forest);background:var(--forest-soft)">
+            <div style="display:flex;justify-content:space-between;align-items:baseline"><b style="font-size:11.5px">Pass hôte</b><b style="font-size:11.5px">9,99 €<span style="font-weight:400;color:var(--muted)">/mois</span></b></div>
+            <div style="font-size:10px;color:var(--muted);margin-top:3px">Zéro commission sur vos nuitées</div>
+            <div style="font-size:10px;color:var(--forest);margin-top:6px;display:flex;align-items:center;gap:5px"><svg style="width:10px;height:10px"><use href="#check"/></svg>Actif jusqu'au 9 septembre</div>
+          </div>
+
+          <div class="m-label">Mouvements</div>
+          <div class="m-box">
+            <div class="row" style="font-size:11px;padding:5px 0;border-bottom:1px solid var(--line)"><span class="k">Revenu — Prairie rivière</span><span class="v" style="color:var(--forest)">+ 70,30 €</span></div>
+            <div class="row" style="font-size:11px;padding:5px 0;border-bottom:1px solid var(--line)"><span class="k">Pass hôte</span><span class="v">− 9,99 €</span></div>
+            <div class="row" style="font-size:11px;padding:5px 0"><span class="k">Virement bancaire</span><span class="v">− 150,00 €</span></div>
+          </div>
+        </div>
+        <div class="tabbar">
+          <div><svg><use href="#search"/></svg>Explorer</div>
+          <div><svg><use href="#heart"/></svg>Favoris</div>
+          <div><svg><use href="#msg"/></svg>Messages</div>
+          <div><svg><use href="#cal"/></svg>Séjours</div>
+          <div class="on"><svg><use href="#user"/></svg>Profil</div>
+        </div>
+      </div></div>
+      <p class="lbl">Portefeuille</p>
+    </div>
+
+  </div>
+
+  <footer>
+    <span>CampNest — maquette des écrans, août 2026. Rendu statique, écrans non contractuels.</span>
+    <span>Montants calculés par le moteur de tarification réel de la plateforme.</span>
+  </footer>
+</div>
+
+</body>
+</html>

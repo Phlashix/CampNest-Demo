@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CampNest — démonstration</title>
+<meta name="description" content="Prototype interactif et maquette des écrans CampNest, camping entre particuliers en France.">
+<style>
+  :root { --ground:#EFF2EC; --card:#fff; --ink:#141A16; --soft:#5C6A5E; --line:#DDE4DA; --forest:#1F5F46; --clay:#C0601F; }
+  @media (prefers-color-scheme: dark) {
+    :root { --ground:#0E130F; --card:#171E18; --ink:#E7EDE5; --soft:#93A191; --line:#2A342A; --forest:#6CC49C; --clay:#EE9455; }
+  }
+  * { box-sizing:border-box }
+  body { margin:0; background:var(--ground); color:var(--ink); font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif; line-height:1.6; -webkit-font-smoothing:antialiased; }
+  .wrap { max-width:760px; margin:0 auto; padding:clamp(40px,9vw,96px) 22px 80px; }
+  .mark { width:52px; height:52px; border-radius:15px; background:var(--forest); display:grid; place-items:center; margin-bottom:26px; }
+  .mark svg { width:26px; height:26px; color:#F2994A; }
+  h1 { font-size:clamp(32px,6vw,50px); line-height:1.04; letter-spacing:-.03em; margin:0 0 14px; font-weight:800; }
+  .lede { font-size:clamp(16px,2.2vw,19px); color:var(--soft); margin:0 0 40px; max-width:52ch; }
+  .grid { display:grid; gap:16px; }
+  a.card {
+    display:block; text-decoration:none; color:inherit; background:var(--card);
+    border:1px solid var(--line); border-radius:18px; padding:24px;
+    transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+  }
+  a.card:hover { transform:translateY(-2px); border-color:var(--forest); box-shadow:0 18px 40px -22px rgba(0,0,0,.45); }
+  a.card:focus-visible { outline:2px solid var(--forest); outline-offset:3px; }
+  .k { font-size:11px; letter-spacing:.16em; text-transform:uppercase; font-weight:700; color:var(--forest); }
+  a.card h2 { font-size:21px; letter-spacing:-.02em; margin:8px 0 6px; font-weight:750; }
+  a.card p { margin:0; font-size:14.5px; color:var(--soft); }
+  .go { display:inline-flex; align-items:center; gap:7px; margin-top:14px; font-size:14px; font-weight:650; color:var(--forest); }
+  footer { margin-top:44px; padding-top:20px; border-top:1px solid var(--line); font-size:13px; color:var(--soft); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="mark">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 2 20h20L12 3Z"/><path d="M12 3v17"/></svg>
+  </div>
+
+  <h1>CampNest</h1>
+  <p class="lede">
+    Camping entre particuliers en France. Deux façons de découvrir le produit :
+    en cliquant dedans, ou en parcourant les écrans.
+  </p>
+
+  <div class="grid">
+    <a class="card" href="prototype.html">
+      <span class="k">Prototype interactif</span>
+      <h2>Essayer l'application</h2>
+      <p>
+        Parcours complet et cliquable : connexion, tableau de bord de l'hôte, acceptation d'une
+        réservation, réservation côté voyageur, portefeuille. Bascule entre le site web et
+        l'application mobile.
+      </p>
+      <span class="go">Ouvrir le prototype →</span>
+    </a>
+
+    <a class="card" href="maquette.html">
+      <span class="k">Maquette</span>
+      <h2>Voir les écrans</h2>
+      <p>
+        Les sept écrans principaux du site et de l'application, présentés à leur taille réelle :
+        catalogue, recherche cartographique, annonce, espace hôte, compte de l'entreprise.
+      </p>
+      <span class="go">Ouvrir la maquette →</span>
+    </a>
+  </div>
+
+  <footer>
+    Démonstration à données fictives — aucune connexion à un système réel, aucun paiement.
+    Écrans non contractuels.
+  </footer>
+</div>
+</body>
+</html>
